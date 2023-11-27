@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import { handleGetUser } from "../../services/userService";
+import {
+  handleGetUser,
+  handleCreateNewService,
+} from "../../services/userService";
 import "./userManage.scss";
 import ModalCreateUser from "./ModalCreateUser";
 class UserManage extends Component {
@@ -12,8 +15,7 @@ class UserManage extends Component {
       isOpenModal: false,
     };
   }
-
-  async componentDidMount() {
+  getAllUser = async () => {
     let usersDidmout = this.state.users;
     let response = await handleGetUser("all");
     if (response) {
@@ -22,6 +24,9 @@ class UserManage extends Component {
     this.setState({
       users: usersDidmout,
     });
+  };
+  async componentDidMount() {
+    this.getAllUser();
   }
   handleAddNew = () => {
     this.setState({
@@ -33,6 +38,19 @@ class UserManage extends Component {
       isOpenModal: !this.state.isOpenModal,
     });
   };
+  CreateNewUser = async (data) => {
+    try {
+      let response = await handleCreateNewService(data);
+      if (response && response.message.errCode !== 0) {
+        alert(response.errMessage);
+      } else {
+        await this.getAllUser();
+      }
+      console.log(">>>check response:", response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   render() {
     // let users = this.state.users;
     // console.log(">>>check state:", users);
@@ -43,6 +61,8 @@ class UserManage extends Component {
           <ModalCreateUser
             isOpenModal={this.state.isOpenModal}
             toggle={this.toggleOpen}
+            users={this.state.users}
+            CreateNewUser={this.CreateNewUser}
           />
           <div className="title text-center"> Manage users with minh</div>
 
@@ -52,7 +72,7 @@ class UserManage extends Component {
                 className="btn btn-primary col-3 "
                 onClick={() => this.handleAddNew()}
               >
-                Add New <i class="fas fa-plus"></i>
+                Add New <i classsName="fas fa-plus"></i>
               </button>
             </div>
             <table className="table table-hover table-bordered ">
@@ -70,14 +90,14 @@ class UserManage extends Component {
                   this.state.users.length > 0 &&
                   this.state.users.map((item, index) => {
                     return (
-                      <tr>
+                      <tr key={index}>
                         <td>{item.email}</td>
                         <td>{item.firstName}</td>
                         <td>{item.lastName}</td>
                         <td>{item.address}</td>
                         <td className="text-center">
                           <i class="far fa-edit mx-3 edit"></i>
-                          <i class="fas fa-trash-alt mx-3 delete"></i>
+                          <i class="far fa-trash-alt mx-3 delete"></i>
                         </td>
                       </tr>
                     );
