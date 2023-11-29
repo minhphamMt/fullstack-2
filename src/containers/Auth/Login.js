@@ -98,14 +98,19 @@ class Login extends Component {
                     }}
                   />
                   {this.state.boolean === true ? (
-                    <i
-                      onClick={() => this.showHide()}
-                      classsName="far fa-eye"
-                    ></i>
+                    // <i
+                    //   onClick={() => this.showHide()}
+                    //   classsName="far fa-eye"
+                    // ></i>
+                    <i class="far fa-eye" onClick={() => this.showHide()}></i>
                   ) : (
+                    // <i
+                    //   onClick={() => this.showHide()}
+                    //   classsName="fas fa-eye-slash"
+                    // ></i>
                     <i
+                      class="fas fa-eye-slash"
                       onClick={() => this.showHide()}
-                      classsName="fas fa-eye-slash"
                     ></i>
                   )}
                 </div>
@@ -116,13 +121,13 @@ class Login extends Component {
               <div className="col-12 button-login">
                 <button
                   type="button"
-                  classsName="btn btn-primary col-12 my-4 button"
+                  className="btn btn-primary col-12 button"
                   onClick={() => this.handleLogin()}
                 >
-                  Log in
+                  log In
                 </button>
               </div>
-              <div className="col-12">
+              <div className="col-12 forgot">
                 <span className="forgot-password">Forgot password?</span>
               </div>
               <div className="col-12 text-center mt-3">

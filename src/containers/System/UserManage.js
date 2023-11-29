@@ -4,15 +4,20 @@ import { connect } from "react-redux";
 import {
   handleGetUser,
   handleCreateNewService,
+  handleDeleteUser,
+  handleEditUser,
 } from "../../services/userService";
 import "./userManage.scss";
 import ModalCreateUser from "./ModalCreateUser";
+import ModdalEditUser from "./ModdalEditUser";
 class UserManage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       users: [],
       isOpenModal: false,
+      OpenModal: false,
+      userbyid: {},
     };
   }
   getAllUser = async () => {
@@ -38,6 +43,11 @@ class UserManage extends Component {
       isOpenModal: !this.state.isOpenModal,
     });
   };
+  toggleOpenEdit = () => {
+    this.setState({
+      OpenModal: !this.state.OpenModal,
+    });
+  };
   CreateNewUser = async (data) => {
     try {
       let response = await handleCreateNewService(data);
@@ -51,10 +61,50 @@ class UserManage extends Component {
       console.log(err);
     }
   };
+  DeleteUser = async (id) => {
+    try {
+      let response = await handleDeleteUser(id);
+      console.log(">>>ceck message:", response);
+      console.log(">>>ceck message:", response.message.errCode);
+      if (response && response.message.errCode === 0) {
+        await this.getAllUser();
+      } else {
+        alert(response.message.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  EditUser = async (data) => {
+    try {
+      let message = await handleEditUser(data);
+      console.log(">>>check data output:", data);
+      if (message && message.message.errCode !== 0) {
+        alert(message.message.message);
+      } else {
+        await this.getAllUser();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  getUserById = (id) => {
+    let user = {};
+    let Alluser = this.state.users;
+    this.setState({
+      OpenModal: true,
+    });
+    for (let i = 0; i < Alluser.length; i++) {
+      if (Alluser[i].id === id) {
+        user = Alluser[i];
+        break;
+      }
+    }
+    this.setState({
+      userbyid: user,
+    });
+  };
   render() {
-    // let users = this.state.users;
-    // console.log(">>>check state:", users);
-
     return (
       <>
         <div className="user-container col-12">
@@ -64,6 +114,15 @@ class UserManage extends Component {
             users={this.state.users}
             CreateNewUser={this.CreateNewUser}
           />
+          {this.state.OpenModal && (
+            <ModdalEditUser
+              OpenModal={this.state.OpenModal}
+              toggleOpenEdit={this.toggleOpenEdit}
+              users={this.state.users}
+              userbyid={this.state.userbyid}
+              EditUser={this.EditUser}
+            />
+          )}
           <div className="title text-center"> Manage users with minh</div>
 
           <div className="container-fluid mt-3 col-11">
@@ -96,8 +155,14 @@ class UserManage extends Component {
                         <td>{item.lastName}</td>
                         <td>{item.address}</td>
                         <td className="text-center">
-                          <i class="far fa-edit mx-3 edit"></i>
-                          <i class="far fa-trash-alt mx-3 delete"></i>
+                          <i
+                            className="far fa-edit mx-3 edit"
+                            onClick={() => this.getUserById(item.id)}
+                          ></i>
+                          <i
+                            className="far fa-trash-alt mx-3 delete"
+                            onClick={() => this.DeleteUser(item.id)}
+                          ></i>
                         </td>
                       </tr>
                     );

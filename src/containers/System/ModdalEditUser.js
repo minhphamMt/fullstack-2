@@ -2,29 +2,51 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
-import { handleCreateNew } from "../../services/userService";
+import { handleCreateNew, handleEditUser } from "../../services/userService";
 import "./MOdal.scss";
 import { invalid } from "moment/moment";
+import _, { isEmpty } from "lodash";
 class ModalCreateUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {
         email: "",
-        password: "",
+        // password: "",
         firstName: "",
         lastName: "",
         address: "",
         phoneNumber: "",
         gender: "",
         roleId: "",
+        id: "",
       },
-      err: "",
     };
   }
-  async componentDidMount() {}
+  componentDidMount() {
+    let userchange = this.props.userbyid;
+    // let user = { ...this.state.data };
+    // if (user) {
+    // }
+    // console.log("check user:", user);
+    if (userchange && !isEmpty(userchange)) {
+      this.setState((prevstate) => ({
+        ...prevstate,
+        data: {
+          id: userchange.id,
+          email: userchange.email,
+          firstName: userchange.firstName,
+          lastName: userchange.lastName,
+          address: userchange.address,
+          phoneNumber: userchange.phoneNumber,
+          gender: userchange.gender,
+          roleId: userchange.roleId,
+        },
+      }));
+    }
+  }
   toggle = async () => {
-    this.props.toggle();
+    this.props.toggleOpenEdit();
   };
   handleOnChangeValue = (event, id) => {
     let coppystate = this.state.data;
@@ -32,25 +54,13 @@ class ModalCreateUser extends Component {
     this.setState({
       data: coppystate,
     });
-    console.log(">>check state:", this.state.data);
-  };
 
-  checkEmail = () => {
-    let check = true;
-    let user = this.props.users;
-    for (let i = 0; i < user.length; i++) {
-      if (user[i].email === this.state.data.email) {
-        check = false;
-        break;
-      }
-    }
-    return check;
+    // console.log(">>check state:", this.state.data);
   };
   checkValidateInput = () => {
     let isValid = true;
     let arrinput = [
       "email",
-      "password",
       "firstName",
       "lastName",
       "address",
@@ -58,17 +68,8 @@ class ModalCreateUser extends Component {
       "gender",
       "roleId",
     ];
-    let check = this.checkEmail();
     let datacheck = this.state.data;
-    if (check === false) {
-      this.setState({
-        err: "The Email Is Exist plz try again",
-      });
-      return;
-    }
     for (let i = 0; i < arrinput.length; i++) {
-      console.log(datacheck[arrinput[i]]);
-
       if (!datacheck[arrinput[i]]) {
         isValid = false;
         this.setState({
@@ -84,28 +85,48 @@ class ModalCreateUser extends Component {
 
     return isValid;
   };
-  createNew = () => {
+  UpdateUser = async () => {
     let data = this.state.data;
+    console.log(">>>check data input:", data);
     let isValid = this.checkValidateInput();
     if (isValid === true) {
-      this.props.CreateNewUser(data);
-      this.props.toggle();
+      this.props.EditUser(data);
+      this.toggle();
     } else {
-      console.log("err code");
+      alert("something wrong !");
     }
   };
+
   render() {
+    let boolean = true;
+    console.log(">>>check type:", typeof boolean);
+    let roleId = this.state.data.id;
+    let gender = this.state.data.gender;
+    let sex = "";
+    if (gender === 1) {
+      sex = "Male";
+    } else {
+      sex = "Female";
+    }
+    let role = "";
+    if (roleId === 1) {
+      role = "Admin";
+    } else if (roleId === 2) {
+      role = "Doctor";
+    } else {
+      role = "Patient";
+    }
     return (
       <>
         <Modal
-          isOpen={this.props.isOpenModal}
+          isOpen={this.props.OpenModal}
           toggle={() => this.toggle()}
           className="abcclassname"
           size="lg"
           centered
         >
           <ModalHeader toggle={() => this.toggle()}>
-            Create a New User
+            Edit a New User
           </ModalHeader>
           <ModalBody>
             <>
@@ -114,27 +135,28 @@ class ModalCreateUser extends Component {
                 <div className="row">
                   <div className="col-12 text-center">
                     <h3 style={{ textTransform: "capitalize" }}>
-                      Create a new user
+                      Edit a new user
                     </h3>
                     <h5 style={{ color: "red" }}>{this.state.err}</h5>
                   </div>
 
                   <div className="col-12">
                     <div className="row">
-                      <div className="col-6 mb-3 mt-3">
+                      <div className="col-12 mb-3 mt-3">
                         <label className="form-label">Email:</label>
                         <input
                           type="email"
                           className="form-control"
                           placeholder="Enter email"
                           name="email"
-                          value={this.state.email}
+                          value={this.state.data.email}
                           onChange={(event) =>
                             this.handleOnChangeValue(event, "email")
                           }
+                          disabled
                         />
                       </div>
-                      <div className="col-6 mt-3 mb-3">
+                      {/* <div className="col-6 mt-3 mb-3">
                         <label className="form-label">Password:</label>
                         <input
                           type="password"
@@ -147,13 +169,13 @@ class ModalCreateUser extends Component {
                             this.handleOnChangeValue(event, "password")
                           }
                         />
-                      </div>
+                      </div> */}
                     </div>
                     <div className="row">
                       <div className="col-6 mb-3 mt-3">
                         <label className="form-label">First name:</label>
                         <input
-                          value={this.state.firstName}
+                          value={this.state.data.firstName}
                           type="text"
                           className="form-control"
                           placeholder="your firstName"
@@ -166,7 +188,7 @@ class ModalCreateUser extends Component {
                       <div className="col-6 mt-3 mb-3">
                         <label className="form-label">Last Name:</label>
                         <input
-                          value={this.state.lastName}
+                          value={this.state.data.lastName}
                           type="text"
                           className="form-control"
                           placeholder="your lastName"
@@ -181,7 +203,7 @@ class ModalCreateUser extends Component {
                       <div className="col-12 mb-3 mt-3">
                         <label className="form-label">Adress:</label>
                         <input
-                          value={this.state.address}
+                          value={this.state.data.address}
                           type="text"
                           className="form-control"
                           placeholder="Adress:"
@@ -196,7 +218,7 @@ class ModalCreateUser extends Component {
                       <div className="col-4 mb-3 mt-3">
                         <label className="form-label">phone number</label>
                         <input
-                          value={this.state.phoneNumber}
+                          value={this.state.data.phoneNumber}
                           type="text"
                           className="form-control"
                           placeholder="Your phone number:"
@@ -215,8 +237,8 @@ class ModalCreateUser extends Component {
                             this.handleOnChangeValue(event, "gender")
                           }
                         >
-                          <option value="" disabled selected>
-                            Select your option
+                          <option value={String(gender)} disabled selected>
+                            {sex}
                           </option>
                           <option value="1">Male</option>
                           <option value="0">Female</option>
@@ -231,8 +253,9 @@ class ModalCreateUser extends Component {
                             this.handleOnChangeValue(event, "roleId")
                           }
                         >
-                          <option value="" disabled selected>
-                            Select your option
+                          <option value={String(roleId)} disabled selected>
+                            {""}
+                            {role}
                           </option>
                           <option value="1">Admin</option>
                           <option value="2">Doctor</option>
@@ -248,9 +271,9 @@ class ModalCreateUser extends Component {
           <ModalFooter>
             <button
               className="btn btn-primary col-4"
-              onClick={() => this.createNew()}
+              onClick={() => this.UpdateUser()}
             >
-              Add new
+              Update
             </button>{" "}
             <button
               className="btn btn-warning col-3"
