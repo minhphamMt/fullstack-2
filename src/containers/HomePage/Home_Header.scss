@@ -1,0 +1,158 @@
+.home-header-container {
+    height: 70px;
+    // border: 1px solid red;
+    width: 100%;
+    padding: 0 25px;
+    background-color: #71cde6b7;
+    .home-header-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        .left-content {
+            width: 25%;
+            // border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .bars {
+                font-size: 30px;
+                margin-left: 50px;
+                color: gray;
+                cursor: pointer;
+            }
+            .logo {
+                font-size: 40px;
+                padding-top: 10px;
+                padding-left: 15px;
+                // position: absolute;
+                width: 365px;
+                height: 80px;
+                // background-image: url("./bookingcare.png");
+                // background-size: cover;
+                // scale: 0.6;
+                left: 40px;
+                cursor: pointer;
+            }
+        }
+        .center-content {
+            display: flex;
+            gap: 40px;
+            // border: 1px solid black;
+            width: 50%;
+            align-items: center;
+            justify-content: center;
+            .child-content {
+                padding-top: 15px;
+                p {
+                    text-transform: capitalize;
+                    font-weight: 700;
+                }
+                span {
+                    text-transform: capitalize;
+                    color: gray;
+                    font-size: 10px;
+                }
+            }
+        }
+        .right-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            // border: 1px solid black;
+            width: 25%;
+            i {
+                color: rgb(65, 123, 200);
+                font-size: 20px;
+            }
+            p {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+.home-header-banner {
+    width: 100%;
+    height: 550px;
+    background-image: url("./backgrweb.jpg"), linear-gradient(to bottom, #ffffff6e, rgba(0, 0, 0, 0.444));
+    background-repeat: none;
+    background-size: cover;
+    opacity: 0.8;
+    text-align: center;
+    .content-up {
+        width: 100%;
+        height: 60%;
+        .title-1 {
+            padding-top: 50px;
+            text-transform: uppercase;
+            font-size: 33px;
+        }
+        .title-2 {
+            margin-top: 5px;
+            text-transform: uppercase;
+            font-size: 29px;
+            font-weight: 500;
+        }
+        .search {
+            position: relative;
+            width: 400px;
+            height: 45px;
+            display: inline-block;
+            background-color: #fecd00;
+            border-radius: 50px;
+            margin-top: 50px;
+            .search-bar {
+                width: 375px;
+                margin-left: 22px;
+                border-radius: 30px;
+                height: inherit;
+                border: none;
+                background-color: #fecd00;
+            }
+            .search-bar::placeholder {
+                padding-left: 30px;
+            }
+            .search-bar:focus {
+                outline: none;
+            }
+            .icon {
+                position: absolute;
+                top: 50%;
+                left: 15px;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+    .content-down {
+        display: inline-block;
+        width: 100%;
+        height: 40%;
+        background-image: linear-gradient(to bottom, #ffffff21 30%, #ffffffdd 70%);
+
+        .option {
+            display: flex;
+            margin-top: 90px;
+            align-items: center;
+            justify-content: center;
+            gap: 100px;
+            .option-child {
+                max-width: 100px;
+                color: #041d24;
+                font-weight: 700;
+                text-shadow: 2px 2px 5px black;
+                .logo {
+                    margin: 0 auto;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    color: #37ccf6;
+                    text-shadow: none;
+                    background-color: #ffff;
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+}
