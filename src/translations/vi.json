@@ -1,4 +1,36 @@
 {
+    "home-header":{
+        "speciality":"chuyên khoa",
+        "search-doctor":" tìm bác sĩ chuyên khoa",
+        "health-facility":" cơ sở y tế ",
+        "select-room":"chọn bệnh viện phòng khám",
+        "doctor":" bác sĩ",
+        "select-doctor":"chọn bác sĩ giỏi",
+        "package":" gói khám",
+        "health-check":"khám sức khỏe tổng quát",
+        "support":"Hỗ Trợ"
+    },
+    "banner":{
+        "title-1":"nền tảng y tế",
+        "title-2":"chăm sóc sức khỏe toàn diện",
+        "find-hospital":"Tìm Bệnh Viện",
+        "speciality":"khám chuyên khoa"
+
+    },
+    "specialty":{
+         "see-more":"Xem Thêm",
+         "title":"Chuyên Khoa Phổ Biến",
+         "bone":"cơ xương khớp",
+         "heart":"khám tim mạch",
+         "polyclinic":"Tai Mũi Họng",
+         "child":"Khám Nhi Khoa",
+         "Supersonic":"Siêu âm thai",
+         "Spine":"Cột Sống",
+         "Nerve":"Khoa Thần Kinh",
+         "Hepatitis":"Bệnh Viêm Gan ",
+         "Obstetrics":"Khoa Sản",
+         "Dermatology":"Da Liễu "
+    },
     "common": {
         "add": "Thêm",
         "edit": "Sửa",

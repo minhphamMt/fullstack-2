@@ -1,4 +1,35 @@
-{
+{ "home-header":{
+        "speciality":"medical specialist",
+        "search-doctor":" Find a specialist",
+        "health-facility":" health facilities ",
+        "select-room":"Choose a hospital or clinic",
+        "doctor":" doctor",
+        "select-doctor":"Choose a good doctor",
+        "package":" examination package",
+        "health-check":"General health check",
+        "support":"Support"
+    },
+     "banner":{
+        "title-1":"medical background",
+        "title-2":"comprehensive health care",
+        "find-hospital":"find hospital",
+        "speciality":"specialist examination"
+
+    },
+    "specialty":{
+       "see-more":"See more",
+       "title":"Popular Specialties",
+       "bone":"musculoskeletal",
+       "heart":"cardiovascular examination",
+       "polyclinic":"Ear, nose and throat",
+        "child":"Pediatric Examination",
+        "Supersonic":"Fetal ultrasound",
+        "Spine":"Spine",
+        "Nerve":"Department of Neurology",
+        "Hepatitis":"Hepatitis ",
+        "Obstetrics":"Obstetrics",
+        "Dermatology":"Dermatology"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",

@@ -1,0 +1,113 @@
+.section-specialty {
+    position: relative;
+    width: 100%;
+    height: 330px;
+    background-color: rgba(128, 128, 128, 0.133);
+    .speialty-content {
+        height: inherit;
+        width: 90%;
+        padding: 0 30px;
+        color: red;
+        margin: auto;
+        .title-specialty {
+            position: absolute;
+            top: 20px;
+            color: black;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .see-more {
+            cursor: pointer;
+            border: none;
+            width: 100px;
+            height: 40px;
+            background-color: rgba(128, 128, 128, 0.359);
+            margin-top: 10px;
+            margin-left: 85%;
+            border-radius: 5px;
+            &:hover {
+                background-color: gray;
+                color: white;
+            }
+        }
+        .specialty-child {
+            display: flex;
+            flex-direction: column;
+            padding: 0 10px;
+            .img {
+                width: 90%;
+                height: 200px;
+                background-image: url(./img-specialty/112457-co-xuong-khop.jpg);
+                background-size: cover;
+                border-radius: 20px;
+                margin-top: 26px;
+                margin-left: 15px;
+            }
+            .two {
+                background-image: url(./img-specialty/112550-tim-mach.jpg);
+            }
+            .three {
+                background-image: url(./img-specialty/112617-tai-mui-hong.jpg);
+            }
+            .four {
+                background-image: url(./img-specialty/112651-nhi-khoa.jpg);
+            }
+            .five {
+                background-image: url(./img-specialty/112911-sieu-am-thai.jpg);
+            }
+            .six {
+                background-image: url(./img-specialty/113208-cot-song.jpg);
+            }
+            .seven {
+                background-image: url(./img-specialty/113208-than-kinh.jpg);
+            }
+            .eight {
+                background-image: url(./img-specialty/113221-benh-viem-gan.jpg);
+            }
+            .nine {
+                background-image: url(./img-specialty/113221-san-phu-khoa.jpg);
+            }
+            .ten {
+                background-image: url(./img-specialty/175809-da-lieu.jpg);
+            }
+            span {
+                margin-left: 33px;
+                font-size: 16px;
+                text-transform: capitalize;
+                color: black;
+            }
+        }
+        .slick-arrow {
+            margin-top: 5px;
+            z-index: 10;
+            scale: 1.1;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.904);
+            border-radius: 5px;
+            opacity: 0.9;
+            box-shadow: rgb(201, 236, 240) 3px 3px 4px;
+            &:hover {
+                opacity: 1;
+            }
+        }
+        .slick-prev {
+            margin-left: 33px;
+            z-index: 1000;
+            &::before {
+                font-size: 30px;
+                opacity: none;
+                color: rgba(128, 128, 128, 0.496);
+            }
+        }
+        .slick-next {
+            margin-right: 35px;
+            z-index: 1000;
+            &::before {
+                font-size: 30px;
+                opacity: none;
+                color: rgba(128, 128, 128, 0.496);
+            }
+        }
+    }
+}
