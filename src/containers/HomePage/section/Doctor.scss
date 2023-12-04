@@ -1,0 +1,92 @@
+.section-doctor {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    background-image: url(./img-specialty/background-doctor.png);
+
+    .doctor-content {
+        height: inherit;
+        width: 90%;
+        padding: 0 30px;
+        color: red;
+        margin: auto;
+        .title-doctor {
+            position: absolute;
+            top: 20px;
+            color: black;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .see-more {
+            cursor: pointer;
+            border: none;
+            width: 100px;
+            height: 40px;
+            background-color: rgba(128, 128, 128, 0.359);
+            margin-top: 10px;
+            margin-left: 85%;
+            border-radius: 5px;
+            text-transform: capitalize;
+            &:hover {
+                background-color: gray;
+                color: white;
+            }
+        }
+
+        .doctor-child {
+            width: 300px !important;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 10px;
+            border: 1px solid gray;
+            text-align: center;
+            color: black;
+            text-transform: capitalize;
+            margin-top: 41px;
+            .doctor-img {
+                width: 150px;
+                height: 150px;
+                background-image: url(./img-specialty/105401-bsckii-tran-minh-khuyen.jpg);
+                background-size: cover;
+                border-radius: 50%;
+                margin: 15px auto;
+                border: 1px solid gray;
+            }
+        }
+
+        .slick-arrow {
+            margin-top: 5px;
+            z-index: 10;
+            scale: 1.1;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.904);
+            border-radius: 5px;
+            opacity: 0.9;
+            box-shadow: rgb(201, 236, 240) 3px 3px 4px;
+            &:hover {
+                opacity: 1;
+            }
+        }
+        .slick-prev {
+            margin-left: 5px;
+            z-index: 1000;
+            &::before {
+                font-size: 30px;
+                opacity: none;
+                color: rgba(128, 128, 128, 0.496);
+            }
+        }
+        .slick-next {
+            margin-right: 35px;
+            z-index: 1000;
+            &::before {
+                font-size: 30px;
+                opacity: none;
+                color: rgba(128, 128, 128, 0.496);
+            }
+        }
+    }
+}
