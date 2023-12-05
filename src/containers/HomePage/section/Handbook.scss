@@ -1,0 +1,98 @@
+.section-handbook {
+    position: relative;
+    width: 100%;
+    height: 330px;
+    background-color: #ffff;
+    .handbook-content {
+        height: inherit;
+        width: 90%;
+        padding: 0 30px;
+        color: red;
+        margin: auto;
+        .title-handbook {
+            position: absolute;
+            top: 20px;
+            color: black;
+            font-size: 24px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .see-more {
+            cursor: pointer;
+            border: none;
+            width: 100px;
+            height: 40px;
+            background-color: rgba(128, 128, 128, 0.359);
+            margin-top: 10px;
+            margin-left: 85%;
+            border-radius: 5px;
+            text-transform: capitalize;
+            &:hover {
+                background-color: gray;
+                color: white;
+            }
+        }
+        .handbook-child {
+            display: flex;
+            flex-direction: column;
+            padding: 20px 10px;
+            .child-box {
+                width: 100%;
+                height: 200px;
+                display: flex;
+                .handbook-img {
+                    min-width: 50%;
+                    height: 120px;
+                    background-image: url(./img-specialty/tamly.jpeg);
+                    background-size: cover;
+                    border-radius: 20px;
+                    margin: 50px 0px;
+                }
+                .title-child {
+                    text-transform: capitalize;
+                    color: rgb(31, 137, 243);
+                    font-size: 11px;
+                    padding: 40px 10px;
+                }
+                span {
+                    margin-left: 33px;
+                    font-size: 16px;
+                    text-transform: capitalize;
+                    color: black;
+                }
+            }
+        }
+        .slick-arrow {
+            margin-top: 5px;
+            z-index: 10;
+            scale: 1.1;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.904);
+            border-radius: 5px;
+            opacity: 0.9;
+            box-shadow: rgb(201, 236, 240) 3px 3px 4px;
+            &:hover {
+                opacity: 1;
+            }
+        }
+        .slick-prev {
+            margin-left: 15px;
+            z-index: 1000;
+            &::before {
+                font-size: 30px;
+                opacity: none;
+                color: rgba(128, 128, 128, 0.496);
+            }
+        }
+        .slick-next {
+            margin-right: 35px;
+            z-index: 1000;
+            &::before {
+                font-size: 30px;
+                opacity: none;
+                color: rgba(128, 128, 128, 0.496);
+            }
+        }
+    }
+}

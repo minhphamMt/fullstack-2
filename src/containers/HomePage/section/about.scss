@@ -1,0 +1,82 @@
+.About-container {
+    width: 100%;
+    height: 500px;
+    background-image: url(./img-specialty/background-about.png);
+    background-size: cover;
+    .title-about {
+        text-transform: capitalize;
+        padding: 0px 100px;
+        padding-top: 30px;
+    }
+    .About-content {
+        padding: 30px 50px;
+        display: flex;
+        .video-about {
+            width: 50%;
+            height: 380px;
+            margin-left: 50px;
+            .video {
+                width: 90%;
+                height: 350px;
+                border-radius: 10px;
+            }
+        }
+        .img-about {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: stretch;
+            justify-content: center;
+            align-items: center;
+            width: 45%;
+            height: inherit;
+            margin-left: 30px;
+            // margin-bottom: 10px;
+            margin-top: -30px;
+            .box-about {
+                width: 38%;
+                height: 70px;
+                margin-left: 20px;
+                border-radius: 5px;
+                background-color: #ffff;
+                border-radius: 5px;
+                box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+                .box-img {
+                    width: 60%;
+                    height: 50px;
+                    margin: 10px auto;
+                    background-size: cover;
+                    scale: 0.8;
+                }
+                .one {
+                    background-image: url(./img-about/vtv1.png);
+                }
+                .two {
+                    background-image: url(./img-about/cuc-cong-nghe-thong-tin-bo-y-te-2.png);
+                    height: 55px;
+                }
+                .three {
+                    background-image: url(./img-about/vtcnew.png);
+                    width: 85%;
+                }
+                .four {
+                    background-image: url(./img-about/ictnews.png);
+                    width: 90%;
+                    height: 60px;
+                    scale: 0.6;
+                    margin-top: 3px;
+                }
+                .five {
+                    background-image: url(./img-about/infonet.png);
+                    width: 80%;
+                }
+                .six {
+                    background-image: url(./img-about/vnexpress.png);
+                    scale: 0.5;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

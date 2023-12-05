@@ -5,6 +5,9 @@ import HomeHeader from "./Home_header";
 import Specialty from "./section/Specialty";
 import MedicalFacility from "./section/MedicalFacility";
 import Doctor from "./section/Doctor";
+import Handbook from "./section/Handbook";
+import About from "./section/About";
+import HomeFooter from "./HomeFooter";
 class HomePage extends Component {
   render() {
     return (
@@ -13,6 +16,9 @@ class HomePage extends Component {
         <Specialty />
         <MedicalFacility />
         <Doctor />
+        <Handbook />
+        <About />
+        <HomeFooter />
         <div style={{ height: "300px" }}></div>
       </>
     );

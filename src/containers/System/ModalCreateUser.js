@@ -218,8 +218,9 @@ class ModalCreateUser extends Component {
                           <option value="" disabled selected>
                             Select your option
                           </option>
-                          <option value="1">Male</option>
-                          <option value="0">Female</option>
+                          <option value="M">Male</option>
+                          <option value="F">Female</option>
+                          <option value="O">Other</option>
                         </select>
                       </div>
                       <div className="col-4 mt-3 mb-3">
@@ -234,9 +235,9 @@ class ModalCreateUser extends Component {
                           <option value="" disabled selected>
                             Select your option
                           </option>
-                          <option value="1">Admin</option>
-                          <option value="2">Doctor</option>
-                          <option value="3">Patient</option>
+                          <option value="R1">Admin</option>
+                          <option value="R2">Doctor</option>
+                          <option value="R3">Patient</option>
                         </select>
                       </div>
                     </div>

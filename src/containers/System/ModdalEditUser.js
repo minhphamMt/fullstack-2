@@ -98,20 +98,22 @@ class ModalCreateUser extends Component {
   };
 
   render() {
-    let boolean = true;
-    console.log(">>>check type:", typeof boolean);
-    let roleId = this.state.data.id;
+    let roleId = this.state.data.roleId;
     let gender = this.state.data.gender;
+    console.log(">>>Check :", this.state.data.gender);
+    console.log(">>>Check :", this.state.data.roleId);
     let sex = "";
-    if (gender === 1) {
+    if (gender === "M") {
       sex = "Male";
-    } else {
+    } else if (gender === "F") {
       sex = "Female";
+    } else {
+      sex = "Other";
     }
     let role = "";
-    if (roleId === 1) {
+    if (roleId === "R1") {
       role = "Admin";
-    } else if (roleId === 2) {
+    } else if (roleId === "R2") {
       role = "Doctor";
     } else {
       role = "Patient";
@@ -240,8 +242,9 @@ class ModalCreateUser extends Component {
                           <option value={String(gender)} disabled selected>
                             {sex}
                           </option>
-                          <option value="1">Male</option>
-                          <option value="0">Female</option>
+                          <option value="M">Male</option>
+                          <option value="F">Female</option>
+                          <option value="O">Other</option>
                         </select>
                       </div>
                       <div className="col-4 mt-3 mb-3">
@@ -257,9 +260,9 @@ class ModalCreateUser extends Component {
                             {""}
                             {role}
                           </option>
-                          <option value="1">Admin</option>
-                          <option value="2">Doctor</option>
-                          <option value="3">Patient</option>
+                          <option value="R1">Admin</option>
+                          <option value="R2">Doctor</option>
+                          <option value="R3">Patient</option>
                         </select>
                       </div>
                     </div>
