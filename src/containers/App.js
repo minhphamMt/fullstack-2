@@ -13,7 +13,7 @@ import { path } from "../utils";
 import Login from "./Auth/Login";
 import Home from "../routes/Home";
 // import Login from "../routes/Login";
-import Header from "./Header/Header";
+
 import System from "../routes/System";
 import CustomScrollbars from "../components/CustomScrollbars.js";
 import { CustomToastCloseButton } from "../components/CustomToast";
@@ -44,7 +44,6 @@ class App extends Component {
         <Router history={history}>
           <div className="main-container">
             <ConfirmModal />
-            {this.props.isLoggedIn && <Header />}
 
             <div className="content-container">
               <CustomScrollbars style={{ height: "100vh", width: "100%" }}>
