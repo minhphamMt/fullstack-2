@@ -187,9 +187,6 @@ class Navigator extends Component {
 
   render() {
     const { menus, location, onLinkClick } = this.props;
-    console.log(">>>Check munus:", menus);
-    console.log(">>>Check location:", location);
-    console.log(">>>Check onLinkClick:", onLinkClick);
     return (
       <Fragment>
         <ul className="navigator-menu list-unstyled">

@@ -55,5 +55,19 @@
             "manage-specialty": "Quản lý chuyên khoa",
             "manage-handbook": "Quản lý cẩm nang"
         }
+    },
+    "manage-user": {
+        "add": "Thêm mới ngươi dùng ",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "first-name": "Tên",
+        "last-name": "Họ đệm",
+        "address": "Địa chỉ",
+        "phone": "Số điện thoại",
+        "gender": "Giới tính",
+        "position": "Chức vụ",
+        "roleid": "Phân quyền",
+        "img": "Ảnh miêu tả",
+        "button": "Lưu thay đổi"
     }
 }

@@ -55,5 +55,19 @@
             "manage-specialty": "Manage specialty",
             "manage-handbook": "Manage handbook"
         }
+    },
+    "manage-user": {
+        "add": "Add new user ",
+        "email": "Email",
+        "password": "Password",
+        "first-name": "First name",
+        "last-name": "Last name",
+        "address": "Address",
+        "phone": "Phonenumber",
+        "gender": "Gender",
+        "position": "Position",
+        "roleid": "RoleId",
+        "img": "IMG",
+        "button": "Save change"
     }
 }
