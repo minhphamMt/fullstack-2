@@ -1,5 +1,11 @@
 import actionTypes from "./actionTypes";
-import { getAllCode } from "../../services/userService";
+import { toast } from "react-toastify";
+import {
+  getAllCode,
+  handleCreateNewService,
+  handleGetUser,
+  handleDeleteUser,
+} from "../../services/userService";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
 
@@ -62,4 +68,66 @@ export const fetchPositionSuccess = () => {
 
 export const fetchPositionfaild = () => ({
   type: actionTypes.FETCH_POSITION_FAILD,
+});
+export const createNewUser = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await handleCreateNewService(data);
+      if (res && res.errCode === 0) {
+        toast.success("Create is done!");
+        toast.error("toast is err");
+        dispatch(createUserSuccess());
+      } else {
+        dispatch(createUserFaild());
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(createUserFaild());
+    }
+  };
+};
+export const createUserSuccess = () => ({
+  type: "CREATE_USER_SUCCESS",
+});
+export const createUserFaild = () => ({
+  type: "CREATE_USER_FAILD",
+});
+export const getUserRedux = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await handleGetUser("all");
+      if (res && res.errCode === 0) {
+        dispatch(getUserSuccess(res.users));
+      } else {
+        dispatch(getUserFaild());
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(getUserFaild());
+    }
+  };
+};
+export const getUserSuccess = (data) => ({
+  type: actionTypes.FETCH_GET_USER_SUCCESS,
+  data: data,
+});
+export const getUserFaild = () => ({
+  type: actionTypes.FETCH_GET_USER_FAILD,
+});
+export const deleteUserSuccess = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await handleDeleteUser(id);
+      if (res && res.errCode == 0) {
+        toast.success("Delete is done!");
+      } else {
+        dispatch(fetchPositionfaild());
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const deleteUserFaild = () => ({
+  type: actionTypes.DELETE_USER_FAILD,
 });
