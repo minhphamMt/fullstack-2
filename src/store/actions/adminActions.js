@@ -5,6 +5,7 @@ import {
   handleCreateNewService,
   handleGetUser,
   handleDeleteUser,
+  handleEditUser,
 } from "../../services/userService";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
@@ -130,4 +131,25 @@ export const deleteUserSuccess = (id) => {
 };
 export const deleteUserFaild = () => ({
   type: actionTypes.DELETE_USER_FAILD,
+});
+export const EditUser = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await handleEditUser(data);
+      console.log(">>>check res:", res);
+      if (res && res.errCode == 0) {
+        dispatch(editUserSuccess());
+      } else {
+        dispatch(fetchPositionfaild());
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+export const editUserSuccess = () => ({
+  type: actionTypes.EDIT_USER_SUCCESS,
+});
+export const editUserFaild = () => ({
+  type: actionTypes.EDIT_USER_FAILD,
 });
