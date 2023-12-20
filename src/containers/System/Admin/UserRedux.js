@@ -5,12 +5,14 @@ import { LANGUAGES } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import { ToastContainer, toast } from "react-toastify";
+import CommonUtils from "../../../utils/CommonUtils";
 class UserRedux extends Component {
   constructor(props) {
     super(props);
     this.state = {
       genderArr: [],
       edit: false,
+      preimg: false,
       roleArr: [],
       positionArr: [],
       imgUrl: "",
@@ -24,7 +26,8 @@ class UserRedux extends Component {
         gender: "",
         position: "",
         role: "",
-        img: "",
+        image: "",
+        imgPreview: "",
       },
       allusers: [],
     };
@@ -74,24 +77,28 @@ class UserRedux extends Component {
         gender: "",
         positionId: "",
         roleId: "",
-        img: "",
+        image: "",
       };
       this.setState({
         infomation: { ...info },
         allusers: this.props.alluser,
+        imgUrl: "",
       });
     }
     // if (prevState.infomation !== this.state.infomation) {
     // }
   }
-  handleOnChangeImg = (event) => {
+  handleOnChangeImg = async (event) => {
     // let file = event.refs.file.files[0];
     let data = event.target.files;
     let file = data[0];
     let coppyState = { ...this.state.infomation };
-    coppyState["img"] = file;
     if (file) {
+      let base64 = await CommonUtils.getBase64(file);
+      coppyState["image"] = base64;
+      console.log(">>>check coppy img", coppyState["image"]);
       let objectUrl = URL.createObjectURL(file);
+      coppyState["imgPreview"] = objectUrl;
       this.setState({
         imgUrl: objectUrl,
         infomation: { ...coppyState },
@@ -146,6 +153,7 @@ class UserRedux extends Component {
       gender: this.state.infomation.gender,
       roleId: this.state.infomation.roleId,
       positionId: this.state.infomation.positionId,
+      img: this.state.infomation.image,
     });
 
     setTimeout(() => {
@@ -183,6 +191,7 @@ class UserRedux extends Component {
   };
   handleEditUser = () => {
     let data = { ...this.state.infomation };
+    console.log(">>>check data:", data);
     this.props.EditUser(data);
     setTimeout(() => {
       toast.warn("🦄 Edit is done!", {
@@ -204,17 +213,28 @@ class UserRedux extends Component {
   getUserById = (id) => {
     let arrCoppy = this.state.allusers;
     let userChoose = { ...this.state.infomation };
+    console.log(">>>check user choose:", userChoose);
     for (let i = 0; i < arrCoppy.length; i++) {
       if (arrCoppy[i].id === id) {
         userChoose = arrCoppy[i];
-        console.log(">>>check user:", userChoose);
+        console.log(">>>check user choose:", userChoose.image);
+        let imgbase64 = "";
+        if (userChoose.image) {
+          imgbase64 = new Buffer(userChoose.image, `base64`).toString("binary");
+        }
+        userChoose["imgPreview"] = imgbase64;
+        console.log(">>>check preview:", imgbase64);
         this.setState({
           infomation: { ...userChoose },
           edit: true,
         });
       }
-      console.log(">>>check state:", this.state.infomation);
     }
+  };
+  previewImg = () => {
+    this.setState({
+      preimg: !this.state.preimg,
+    });
   };
   render() {
     let language = this.props.language;
@@ -252,7 +272,7 @@ class UserRedux extends Component {
         {isLoading === true ? (
           <span className="col-12 mx-3">Loading.....</span>
         ) : (
-          <>
+          <div className="modal-parent">
             {" "}
             <div className="user-redux-container">
               <div className="title"> user redux with minh pham</div>
@@ -481,14 +501,22 @@ class UserRedux extends Component {
                           <div
                             className="preview-img"
                             style={{
-                              backgroundImage: `url(${this.state.imgUrl})`,
+                              backgroundImage: `url(${this.state.infomation.imgPreview})`,
                             }}
+                            onClick={() => this.previewImg()}
                           >
-                            <a
-                              className="preview-next"
-                              href={this.state.imgUrl}
-                              target="_blank"
-                            ></a>
+                            {this.state.preimg === true && (
+                              <>
+                                {" "}
+                                <div className="backgr"></div>
+                                <div
+                                  className="preimg-container"
+                                  style={{
+                                    backgroundImage: `url(${this.state.infomation.imgPreview})`,
+                                  }}
+                                ></div>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -569,7 +597,7 @@ class UserRedux extends Component {
                 </table>
               </div>
             </div>
-          </>
+          </div>
         )}
       </>
     );
