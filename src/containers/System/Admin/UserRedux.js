@@ -390,13 +390,19 @@ class UserRedux extends Component {
                                 <>
                                   {language === LANGUAGES.VI ? (
                                     <>
-                                      <option key={item.key} value={item.key}>
+                                      <option
+                                        key={item.keyMap}
+                                        value={item.keyMap}
+                                      >
                                         {item.valueVI}
                                       </option>
                                     </>
                                   ) : (
                                     <>
-                                      <option key={item.key} value={item.key}>
+                                      <option
+                                        key={item.keyMap}
+                                        value={item.keyMap}
+                                      >
                                         {item.valueEN}{" "}
                                       </option>
                                     </>
@@ -426,13 +432,19 @@ class UserRedux extends Component {
                                 <>
                                   {language === LANGUAGES.VI ? (
                                     <>
-                                      <option key={item.key} value={item.key}>
+                                      <option
+                                        key={item.keyMap}
+                                        value={item.keyMap}
+                                      >
                                         {item.valueVI}
                                       </option>
                                     </>
                                   ) : (
                                     <>
-                                      <option key={item.key} value={item.key}>
+                                      <option
+                                        key={item.keyMap}
+                                        value={item.keyMap}
+                                      >
                                         {item.valueEN}{" "}
                                       </option>
                                     </>
@@ -463,13 +475,19 @@ class UserRedux extends Component {
                                   {" "}
                                   {language === LANGUAGES.VI ? (
                                     <>
-                                      <option key={item.key} value={item.key}>
+                                      <option
+                                        key={item.keyMap}
+                                        value={item.keyMap}
+                                      >
                                         {item.valueVI}
                                       </option>
                                     </>
                                   ) : (
                                     <>
-                                      <option key={item.key} value={item.key}>
+                                      <option
+                                        key={item.keyMap}
+                                        value={item.keyMap}
+                                      >
                                         {item.valueEN}{" "}
                                       </option>
                                     </>

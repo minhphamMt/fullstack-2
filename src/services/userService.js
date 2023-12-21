@@ -23,6 +23,9 @@ const handleEditUser = (data) => {
 const getAllCode = (inputType) => {
   return axios.get(`/api/getAllCode?type=${inputType}`);
 };
+const getDoctor = (limit) => {
+  return axios.get(`/api/doctor-home?limit=${limit}`);
+};
 export {
   handleLogin,
   handleGetUser,
@@ -30,4 +33,5 @@ export {
   handleDeleteUser,
   handleEditUser,
   getAllCode,
+  getDoctor,
 };

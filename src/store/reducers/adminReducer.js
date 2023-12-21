@@ -6,6 +6,7 @@ const initialState = {
   roles: [],
   positions: [],
   allUsers: [],
+  Doctor: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -56,6 +57,17 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.FETCH_GET_USER_SUCCESS:
       state.isLoadingGender = false;
       state.allUsers = action.data;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_DOCTOR_SUCCESS:
+      state.isLoadingGender = false;
+      if (action.data.errCode === 0) {
+        state.Doctor = action.data.data;
+      } else {
+        alert("Err in sever");
+      }
+
       return {
         ...state,
       };

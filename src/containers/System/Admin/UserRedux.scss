@@ -19,7 +19,8 @@
                     top: 62%;
                     left: 50%;
                     transform: translate(-74%, -50%);
-                    background-size: cover;
+                    background: center;
+                    background-size: contain;
                     background-repeat: no-repeat;
                     z-index: 10000 !important;
                 }

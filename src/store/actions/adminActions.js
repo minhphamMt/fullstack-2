@@ -6,6 +6,7 @@ import {
   handleGetUser,
   handleDeleteUser,
   handleEditUser,
+  getDoctor,
 } from "../../services/userService";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
@@ -83,6 +84,7 @@ export const createNewUser = (data) => {
       }
     } catch (err) {
       console.log(err);
+      toast.warn("sever err!");
       dispatch(createUserFaild());
     }
   };
@@ -97,6 +99,8 @@ export const getUserRedux = () => {
   return async (dispatch, getState) => {
     try {
       let res = await handleGetUser("all");
+
+      // console.log(">>>Check doctorget:", res1);
       if (res && res.errCode === 0) {
         dispatch(getUserSuccess(res.users));
       } else {
@@ -152,4 +156,25 @@ export const editUserSuccess = () => ({
 });
 export const editUserFaild = () => ({
   type: actionTypes.EDIT_USER_FAILD,
+});
+export const fetchLoadDoctor = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getDoctor("");
+      if (res && res.response.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_DOCTOR_SUCCESS,
+          data: res.response,
+        });
+      } else {
+        dispatch(fetchDoctorFaild());
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(fetchDoctorFaild());
+    }
+  };
+};
+export const fetchDoctorFaild = () => ({
+  type: actionTypes.FETCH_DOCTOR_FAILD,
 });
