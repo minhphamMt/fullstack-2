@@ -43,6 +43,7 @@ class MedicalFacility extends Component {
         }
       }
     }
+    console.log(">>>Check preview:", preview);
     let settings = {
       dots: false,
       infinite: true,
