@@ -18,6 +18,7 @@
             font-weight: 600;
             text-transform: capitalize;
         }
+
         .see-more {
             cursor: pointer;
             border: none;
@@ -70,8 +71,11 @@
                 opacity: 1;
             }
         }
+        // .slick-disabled {
+        //     display: none !important;
+        // }
         .slick-prev {
-            margin-left: 5px;
+            margin-left: 110px;
             z-index: 1000;
             &::before {
                 font-size: 30px;
@@ -80,7 +84,7 @@
             }
         }
         .slick-next {
-            margin-right: 35px;
+            margin-right: 140px;
             z-index: 1000;
             &::before {
                 font-size: 30px;

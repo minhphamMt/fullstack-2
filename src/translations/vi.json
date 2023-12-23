@@ -69,5 +69,9 @@
         "roleid": "Phân quyền",
         "img": "Ảnh miêu tả",
         "button": "Lưu thay đổi"
+    },
+    "Doctor": {
+        "see-more": "Xem thêm",
+        "Best-choice": "Bác sĩ nổi bật tuần qua"
     }
 }

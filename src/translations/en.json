@@ -69,5 +69,9 @@
         "roleid": "RoleId",
         "img": "IMG",
         "button": "Save change"
+    },
+    "Doctor": {
+        "see-more": "See more",
+        "Best-choice": "The Best Doctor in last week"
     }
 }
