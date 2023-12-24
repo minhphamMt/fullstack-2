@@ -40,7 +40,9 @@
                 width: 90%;
                 height: 200px;
                 background-image: url(./img-specialty/153236-logo-hung-viet.jpg);
-                background-size: cover;
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
                 border-radius: 20px;
                 margin-top: 26px;
                 margin-left: 15px;

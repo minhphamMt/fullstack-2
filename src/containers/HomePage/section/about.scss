@@ -46,7 +46,9 @@
                     width: 60%;
                     height: 50px;
                     margin: 10px auto;
-                    background-size: cover;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
                     scale: 0.8;
                 }
                 .one {
@@ -62,19 +64,19 @@
                 }
                 .four {
                     background-image: url(./img-about/ictnews.png);
-                    width: 90%;
-                    height: 60px;
-                    scale: 0.6;
-                    margin-top: 3px;
+                    // width: 90%;
+                    // height: 60px;
+                    // scale: 0.6;
+                    // margin-top: 3px;
                 }
                 .five {
                     background-image: url(./img-about/infonet.png);
-                    width: 80%;
+                    // width: 80%;
                 }
                 .six {
                     background-image: url(./img-about/vnexpress.png);
-                    scale: 0.5;
-                    width: 100%;
+                    // scale: 0.5;
+                    // width: 100%;
                 }
             }
         }

@@ -144,7 +144,6 @@ class MedicalFacility extends Component {
                 Previous
               </button>
             )}
-
             <Slider ref={(c) => (this.slider = c)} {...settings}>
               {Doctor &&
                 Doctor.length > 0 &&
