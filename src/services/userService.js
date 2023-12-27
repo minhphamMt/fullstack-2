@@ -26,6 +26,12 @@ const getAllCode = (inputType) => {
 const getDoctor = (limit) => {
   return axios.get(`/api/doctor-home?limit=${limit}`);
 };
+const getAllDoctor = () => {
+  return axios.get(`/api/get-all-doctor`);
+};
+const handleCreateInfo = (data) => {
+  return axios.post("/api/post-info-doctor", data);
+};
 export {
   handleLogin,
   handleGetUser,
@@ -34,4 +40,6 @@ export {
   handleEditUser,
   getAllCode,
   getDoctor,
+  getAllDoctor,
+  handleCreateInfo,
 };

@@ -71,6 +71,19 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
+      state.isLoadingGender = false;
+      if (action.data && action.data.length > 0) {
+        state.Doctor = action.data;
+      }
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_DOCTOR_FAILD:
+      state.Doctor = [];
+      return {
+        ...state,
+      };
     default:
       return state;
   }

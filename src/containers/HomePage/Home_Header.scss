@@ -108,7 +108,7 @@
             width: 400px;
             height: 45px;
             display: inline-block;
-            background-color: #fecd00;
+            background-color: #f3f0e8;
             border-radius: 50px;
             margin-top: 50px;
             .search-bar {
@@ -117,10 +117,10 @@
                 border-radius: 30px;
                 height: inherit;
                 border: none;
-                background-color: #fecd00;
+                background-color: #f3f0e8;
             }
             .search-bar::placeholder {
-                padding-left: 30px;
+                padding-left: 10px;
             }
             .search-bar:focus {
                 outline: none;

@@ -9,35 +9,59 @@ import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import Select from "react-select";
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
+
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 class MarkDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
       contentHTML: "",
-      contentmarkDowwn: "",
+      contentMarkdown: "",
       selectedDoctor: null,
       description: "",
+      allDoctor: [],
+      doctorId: "",
     };
   }
-  handleSaveMarkDown = () => {
-    console.log("check state:", this.state);
+  componentDidMount() {
+    this.props.getAllDoctor();
+  }
+  componentDidUpdate(preProps, preState) {
+    if (preProps.allDoctor !== this.props.allDoctor) {
+      let dataSelect = this.buildDataInput(this.props.allDoctor);
+      this.setState({
+        allDoctor: dataSelect,
+      });
+    }
+    if (preProps.language !== this.props.language) {
+      let dataSelect = this.buildDataInput(this.props.allDoctor);
+      this.setState({
+        allDoctor: dataSelect,
+      });
+    }
+  }
+  handleSaveMarkDown = async () => {
+    await this.props.createInfoDoctor({
+      contentHTML: this.state.contentHTML,
+      contentMarkdown: this.state.contentMarkdown,
+      description: this.state.description,
+      doctorId: this.state.doctorId,
+    });
   };
   handleEditorChange = ({ html, text }) => {
     console.log("handleEditorChange", html, text);
     this.setState({
       contentHTML: html,
-      contentmarkDowwn: text,
+      contentMarkdown: text,
     });
   };
   handleChange = (selectedDoctor) => {
-    this.setState({ selectedDoctor }, () =>
-      console.log(`Option selected:`, this.state.selectedDoctor)
+    this.setState(
+      {
+        selectedDoctor: selectedDoctor,
+        doctorId: selectedDoctor.value,
+      },
+      () => console.log(`Option selected:`, this.state.selectedDoctor)
     );
   };
   handleOnChangeDesc = (event) => {
@@ -45,8 +69,25 @@ class MarkDown extends Component {
       description: event.target.value,
     });
   };
+  buildDataInput(inputData) {
+    let result = [];
+    let language = this.props.language;
+
+    if (inputData && inputData.length > 0) {
+      inputData.map((item, index) => {
+        let obj = {};
+        let labelVi = `${item.lastName} ${item.firstName}`;
+        let labelEn = `${item.firstName} ${item.lastName}`;
+        obj.label = language === LANGUAGES.VI ? labelVi : labelEn;
+        obj.value = item.id;
+        result.push(obj);
+      });
+    }
+    return result;
+  }
   render() {
-    let { selectedDoctor } = this.state;
+    let { selectedDoctor, allDoctor } = this.state;
+
     return (
       <>
         <div className="manage-doctor-container px-3">
@@ -61,7 +102,7 @@ class MarkDown extends Component {
                 className=""
                 value={selectedDoctor}
                 onChange={(event) => this.handleChange(event)}
-                options={options}
+                options={this.state.allDoctor}
               />
             </div>
             <div className="more-info col-6">
@@ -89,9 +130,9 @@ class MarkDown extends Component {
           </div>
           <button
             className="btn btn-primary mx-3 my-3 col-3 "
-            onClick={() => this.handleSaveMarkDown()}
+            onClick={(data) => this.handleSaveMarkDown(data)}
           >
-            Lưu thông tin
+            Tạo Bài Đăng
           </button>
         </div>
       </>
@@ -106,6 +147,7 @@ const mapStateToProps = (state) => {
     roleRedux: state.admin.roles,
     positionRedux: state.admin.positions,
     alluser: state.admin.allUsers,
+    allDoctor: state.admin.Doctor,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -117,6 +159,8 @@ const mapDispatchToProps = (dispatch) => {
     getAllUser: () => dispatch(actions.getUserRedux()),
     DeleteUserRedux: (id) => dispatch(actions.deleteUserSuccess(id)),
     EditUser: (data) => dispatch(actions.EditUser(data)),
+    getAllDoctor: () => dispatch(actions.fetchAllDoctor()),
+    createInfoDoctor: (data) => dispatch(actions.createInfoDoctor(data)),
     // processLogout: () => dispatch(actions.processLogout()),
     // changeLanguageAppRedux: (language) =>
     //   dispatch(actions.changeLanguageApp(language)),

@@ -31,6 +31,12 @@ const actionTypes = Object.freeze({
   //load doctor
   FETCH_DOCTOR_SUCCESS: "FETCH_DOCTOR_SUCCESS",
   FETCH_DOCTOR_FAILD: "FETCH_DOCTOR_FAILD",
+  //get all doctor
+  FETCH_ALL_DOCTOR_SUCCESS: "FETCH_ALL_DOCTOR_SUCCESS",
+  FETCH_ALL_DOCTOR_FAILD: "FETCH_ALL_DOCTOR_FAILD",
+  //create info doctor
+  CREATE_DONE: "CREATE_DONE",
+  CREATE_FAILD: "CREATE_FAILD",
 });
 
 export default actionTypes;

@@ -7,6 +7,8 @@ import {
   handleDeleteUser,
   handleEditUser,
   getDoctor,
+  getAllDoctor,
+  handleCreateInfo,
 } from "../../services/userService";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
@@ -177,4 +179,44 @@ export const fetchLoadDoctor = () => {
 };
 export const fetchDoctorFaild = () => ({
   type: actionTypes.FETCH_DOCTOR_FAILD,
+});
+
+export const fetchAllDoctor = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllDoctor();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
+          data: res.data,
+        });
+      } else {
+        dispatch(fetchDoctorFaild());
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(fetchAllDoctorFaild());
+    }
+  };
+};
+export const fetchAllDoctorFaild = () => ({
+  type: actionTypes.FETCH_ALL_DOCTOR_FAILD,
+});
+export const createInfoDoctor = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      console.log(">>>check data backend:", data);
+      let res = await handleCreateInfo(data);
+      console.log(">>>check res:", res);
+      //  else {
+      //   dispatch(createDoctorInfofaild());
+      // }
+    } catch (err) {
+      console.log(err);
+      dispatch(createDoctorInfofaild());
+    }
+  };
+};
+export const createDoctorInfofaild = () => ({
+  type: actionTypes.CREATE_FAILD,
 });
