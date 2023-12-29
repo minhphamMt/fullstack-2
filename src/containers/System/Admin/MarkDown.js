@@ -47,6 +47,13 @@ class MarkDown extends Component {
       description: this.state.description,
       doctorId: this.state.doctorId,
     });
+    this.setState({
+      contentHTML: "",
+      contentMarkdown: "",
+      description: "",
+      doctorId: "",
+      selectedDoctor: null,
+    });
   };
   handleEditorChange = ({ html, text }) => {
     console.log("handleEditorChange", html, text);

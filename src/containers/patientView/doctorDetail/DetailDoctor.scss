@@ -1,0 +1,42 @@
+.doctor-container {
+    .header-detail {
+        width: 90vw;
+        height: 80vh;
+        border: 1px solid red;
+        margin: 0 auto;
+        .home-icon {
+            font-size: 20px;
+            margin-left: 10px;
+            margin-top: 5px;
+            cursor: pointer;
+            &:hover {
+                color: rgb(39, 91, 248);
+            }
+        }
+        .doctor-intro {
+            display: flex;
+            .doctor-img {
+                width: 150px;
+                height: 150px;
+                border: 1px solid gray;
+                margin-left: 20px;
+                border-radius: 50%;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            .doctor-first-info {
+                .name-doctor {
+                    margin-top: 20px;
+                    margin-left: 15px;
+                    text-transform: capitalize;
+                    font-weight: 600;
+                }
+                .doctor-desc {
+                    text-transform: capitalize;
+                    margin-left: 15px;
+                    max-width: 470px;
+                }
+            }
+        }
+    }
+}

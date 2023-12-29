@@ -12,6 +12,7 @@ import "../../../../node_modules/slick-carousel/slick/slick-theme.css";
 import * as actions from "../../../store/actions";
 import { LANGUAGES } from "../../../utils";
 import { changeLanguageApp } from "../../../store/actions";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 class MedicalFacility extends Component {
   constructor(props) {
     super(props);
@@ -86,6 +87,9 @@ class MedicalFacility extends Component {
   changeLanguage = (language) => {
     this.props.changeLanguageDoctor(language);
   };
+  handleViewDetail = (id) => {
+    this.props.history.push(`/detail-doctor/${id}`);
+  };
   render() {
     let Doctor = this.state.Doctor;
     let language = this.props.language;
@@ -151,7 +155,10 @@ class MedicalFacility extends Component {
                   return (
                     <>
                       {" "}
-                      <div className="doctor-child">
+                      <div
+                        className="doctor-child"
+                        onClick={() => this.handleViewDetail(item.id)}
+                      >
                         <div
                           className="doctor-img"
                           style={{
@@ -193,4 +200,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MedicalFacility)
+);
