@@ -6,6 +6,7 @@ import HeaderDetail from "./HeaderDetail";
 import "./DetailDoctor.scss";
 import { getDetailInfoDoctor } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
+import { EditDetailDoctor } from "../../../services/userService";
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
@@ -68,6 +69,7 @@ class DetailDoctor extends Component {
                 <p className="doctor-desc">{description}</p>
               </div>
             </div>
+            <div className="line"></div>
           </div>
           <div className="footer-detail">
             <div className="content-doctor">

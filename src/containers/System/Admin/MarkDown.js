@@ -9,7 +9,8 @@ import MarkdownIt from "markdown-it";
 import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import Select from "react-select";
-
+import { getDetailInfoDoctor } from "../../../services/userService";
+import { EditDetailDoctor } from "../../../services/userService";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 class MarkDown extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class MarkDown extends Component {
       description: "",
       allDoctor: [],
       doctorId: "",
+      boolean: false,
     };
   }
   componentDidMount() {
@@ -56,20 +58,44 @@ class MarkDown extends Component {
     });
   };
   handleEditorChange = ({ html, text }) => {
-    console.log("handleEditorChange", html, text);
     this.setState({
       contentHTML: html,
       contentMarkdown: text,
     });
   };
-  handleChange = (selectedDoctor) => {
-    this.setState(
-      {
-        selectedDoctor: selectedDoctor,
-        doctorId: selectedDoctor.value,
-      },
-      () => console.log(`Option selected:`, this.state.selectedDoctor)
-    );
+  handleChangeSelected = async (selectedDoctor) => {
+    let res = await getDetailInfoDoctor(selectedDoctor.value);
+    let content = {};
+    if (res && res.data && res.data.MarkDown) {
+      content = res.data.MarkDown;
+      this.setState({
+        contentHTML: content.contentHTML,
+        contentMarkdown: content.contentMarkdown,
+        description: content.description,
+        boolean: true,
+      });
+      if (!content.description) {
+        this.setState({
+          description: "",
+        });
+      }
+      if (!content.contentMarkdown) {
+        this.setState({
+          contentHTML: "",
+          contentMarkdown: " ",
+        });
+      }
+      if (!content.description && !content.contentMarkdown) {
+        this.setState({
+          boolean: false,
+        });
+      }
+    }
+
+    this.setState({
+      selectedDoctor: selectedDoctor,
+      doctorId: selectedDoctor.value,
+    });
   };
   handleOnChangeDesc = (event) => {
     this.setState({
@@ -92,6 +118,21 @@ class MarkDown extends Component {
     }
     return result;
   }
+  handleEditDetail = async () => {
+    await EditDetailDoctor({
+      contentHTML: this.state.contentHTML,
+      contentMarkdown: this.state.contentMarkdown,
+      description: this.state.description,
+      doctorId: this.state.doctorId,
+    });
+    this.setState({
+      contentHTML: "",
+      contentMarkdown: "",
+      description: "",
+      doctorId: "",
+      selectedDoctor: null,
+    });
+  };
   render() {
     let { selectedDoctor, allDoctor } = this.state;
 
@@ -108,7 +149,7 @@ class MarkDown extends Component {
               <Select
                 className=""
                 value={selectedDoctor}
-                onChange={(event) => this.handleChange(event)}
+                onChange={(event) => this.handleChangeSelected(event)}
                 options={this.state.allDoctor}
               />
             </div>
@@ -133,14 +174,24 @@ class MarkDown extends Component {
               style={{ height: "500px" }}
               renderHTML={(text) => mdParser.render(text)}
               onChange={(event) => this.handleEditorChange(event)}
+              value={this.state.contentMarkdown}
             />
           </div>
-          <button
-            className="btn btn-primary mx-3 my-3 col-3 "
-            onClick={(data) => this.handleSaveMarkDown(data)}
-          >
-            Tạo Bài Đăng
-          </button>
+          {this.state.boolean === false ? (
+            <button
+              className="btn btn-primary mx-3 my-3 col-3 "
+              onClick={() => this.handleSaveMarkDown()}
+            >
+              Tạo Bài Đăng
+            </button>
+          ) : (
+            <button
+              className="btn btn-primary mx-3 my-3 col-3 "
+              onClick={() => this.handleEditDetail()}
+            >
+              Sửa Bài Đăng
+            </button>
+          )}
         </div>
       </>
     );

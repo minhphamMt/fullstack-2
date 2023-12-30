@@ -35,6 +35,9 @@ const handleCreateInfo = (data) => {
 const getDetailInfoDoctor = (id) => {
   return axios.get(`/api/get-detail-doctor-by-id?id=${id}`);
 };
+const EditDetailDoctor = (data) => {
+  return axios.put("/api/edit-detail-doctor", data);
+};
 export {
   handleLogin,
   handleGetUser,
@@ -46,4 +49,5 @@ export {
   getAllDoctor,
   handleCreateInfo,
   getDetailInfoDoctor,
+  EditDetailDoctor,
 };
