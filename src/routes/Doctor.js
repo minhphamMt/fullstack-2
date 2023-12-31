@@ -1,22 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import UserManage from "../containers/System/UserManage";
-import UserRedux from "../containers/System/Admin/UserRedux";
 import Header from "../containers/Header/Header";
-import MarkDown from "../containers/System/Admin/MarkDown";
-class System extends Component {
+import ManageSchedule from "../containers/System/Doctor/ManageSchedule";
+import UserManage from "../containers/System/UserManage";
+class Doctor extends Component {
   render() {
-    const { systemMenuPath, isLoggedIn } = this.props;
+    const { isLoggedIn, systemMenuPath } = this.props;
     return (
       <>
         <div className="system-container">
           {isLoggedIn && <Header />}
           <div className="system-list">
             <Switch>
-              <Route path="/system/user-manage" component={UserManage} />
-              <Route path="/system/user-redux" component={UserRedux} />
-              <Route path="/system/manage-doctor" component={MarkDown} />
+              <Route path="/doctor/user-manage" component={UserManage} />
+              <Route
+                path="/doctor/manage-schedule"
+                component={ManageSchedule}
+              />
               <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;
@@ -41,4 +42,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(System);
+export default connect(mapStateToProps, mapDispatchToProps)(Doctor);

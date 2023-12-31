@@ -5,6 +5,7 @@ export const path = {
   LOG_OUT: "/logout",
   SYSTEM: "/system",
   DETAIL_DOCTOR: "/detail-doctor/:id",
+  DOCTOR_MANAGE: "/doctor",
 };
 
 export const LANGUAGES = {
@@ -25,4 +26,9 @@ export const dateFormat = {
 export const YesNoObj = {
   YES: "Y",
   NO: "N",
+};
+export const userRole = {
+  ADMIN: "R1",
+  DOCTOR: "R2",
+  PATIENT: "R3",
 };

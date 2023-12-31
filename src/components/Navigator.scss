@@ -30,7 +30,7 @@
             position: absolute;
             padding: 0;
             .menu {
-                width: 205px;
+                min-width: 205px;
                 padding: 0 15px;
                 height: 35px;
                 line-height: 35px;
@@ -39,6 +39,7 @@
                     background-color: rgb(72, 136, 226) !important;
                 }
                 .menu-link {
+                    min-width: 300px;
                     text-decoration: none;
                     color: $text-in-light;
                 }

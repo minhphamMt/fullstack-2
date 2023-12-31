@@ -44,6 +44,10 @@
                 "header": "Tham số hệ thống"
             }
         },
+        "doctor": {
+            "manage-schedule": "Quản lý kế hoạch khám bệnh ",
+            "schedule": "quan l"
+        },
         "admin": {
             "manage-user": "Quản lý người dùng",
             "manage-doctor": "Quản lý bác sĩ",

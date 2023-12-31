@@ -18,15 +18,16 @@ class UserRedux extends Component {
       positionArr: [],
       imgUrl: "",
       infomation: {
+        id: "",
         email: "",
         password: "",
-        firstname: "",
-        lastname: "",
-        phonenumber: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
         address: "",
         gender: "",
-        position: "",
-        role: "",
+        positionId: "",
+        roleId: "",
         image: "",
         imgPreview: "",
       },
@@ -193,7 +194,17 @@ class UserRedux extends Component {
   handleEditUser = () => {
     let data = { ...this.state.infomation };
     console.log(">>>check data:", data);
-    this.props.EditUser(data);
+    this.props.EditUser({
+      id: this.state.infomation.id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      address: data.address,
+      phoneNumber: data.phoneNumber,
+      gender: data.gender,
+      roleId: data.roleId,
+      positionId: data.positionId,
+      image: data.image,
+    });
     setTimeout(() => {
       toast.warn("🦄 Edit is done!", {
         position: "top-right",
@@ -214,17 +225,15 @@ class UserRedux extends Component {
   getUserById = (id) => {
     let arrCoppy = this.state.allusers;
     let userChoose = { ...this.state.infomation };
-    console.log(">>>check user choose:", userChoose);
     for (let i = 0; i < arrCoppy.length; i++) {
       if (arrCoppy[i].id === id) {
         userChoose = arrCoppy[i];
-        console.log(">>>check user choose:", userChoose.image);
+        console.log(">>>check user choose:", userChoose);
         let imgbase64 = "";
         if (userChoose.image) {
           imgbase64 = new Buffer(userChoose.image, `base64`).toString("binary");
         }
         userChoose["imgPreview"] = imgbase64;
-        console.log(">>>check preview:", imgbase64);
         this.setState({
           infomation: { ...userChoose },
           edit: true,

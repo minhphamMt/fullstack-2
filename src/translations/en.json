@@ -44,6 +44,10 @@
                 "header": "System-parameter"
             }
         },
+        "doctor": {
+            "manage-schedule": "manage schedule",
+            "schedule": "quan eng"
+        },
         "admin": {
             "manage-user": "Manage User",
             "manage-doctor": "Manage Doctor",
