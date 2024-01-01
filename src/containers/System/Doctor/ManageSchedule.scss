@@ -1,0 +1,24 @@
+.manage-container {
+    .manage-title {
+    }
+    .pick-hour-container {
+        display: flex;
+        height: 100px;
+        // border: 1px solid red;
+        gap: 50px;
+        text-align: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        .time {
+            min-width: 150px;
+            height: 40px;
+            border: 1px solid gray;
+            &.active {
+                background-color: orange;
+            }
+        }
+    }
+    .save {
+        margin-top: 20px;
+    }
+}

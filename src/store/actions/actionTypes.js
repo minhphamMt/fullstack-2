@@ -37,6 +37,9 @@ const actionTypes = Object.freeze({
   //create info doctor
   CREATE_DONE: "CREATE_DONE",
   CREATE_FAILD: "CREATE_FAILD",
+  //get all code
+  GET_ALLCODE_HOUR_SUCCESS: "GET_ALLCODE_HOUR_SUCCESS",
+  GET_ALLCODE_HOUR_FAILD: "GET_ALLCODE_HOUR_FAILD",
 });
 
 export default actionTypes;

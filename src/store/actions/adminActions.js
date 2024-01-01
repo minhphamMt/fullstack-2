@@ -220,3 +220,24 @@ export const createInfoDoctor = (data) => {
 export const createDoctorInfofaild = () => ({
   type: actionTypes.CREATE_FAILD,
 });
+export const fetcHourSuccess = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllCode("TIME");
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.GET_ALLCODE_HOUR_SUCCESS,
+          dataTime: res.data,
+        });
+      } else {
+        dispatch(fetchHourFaild());
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch(fetchHourFaild());
+    }
+  };
+};
+export const fetchHourFaild = () => ({
+  type: actionTypes.GET_ALLCODE_HOUR_FAILD,
+});

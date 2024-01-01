@@ -77,5 +77,11 @@
     "Doctor": {
         "see-more": "See more",
         "Best-choice": "The Best Doctor in last week"
+    },
+    "manage-schedule": {
+        "title": "Manage medical examination plans",
+        "choose-doctor": "Select Doctor",
+        "choose-date": "Select Date",
+        "Save-option": "Save option"
     }
 }
