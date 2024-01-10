@@ -7,6 +7,7 @@ import "./DetailDoctor.scss";
 import { getDetailInfoDoctor } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils";
 import { EditDetailDoctor } from "../../../services/userService";
+import DoctorSchedule from "./DoctorSchedule";
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +56,7 @@ class DetailDoctor extends Component {
               className="fas fa-home home-icon"
               onClick={() => this.handleBackHome()}
             ></i>
-            <div className="doctor-intro">
+            <div className="doctor-intro col-6">
               <div
                 className="doctor-img"
                 style={{
@@ -67,6 +68,10 @@ class DetailDoctor extends Component {
                   {this.props.language === LANGUAGES.VI ? nameVi : nameEn}
                 </h3>
                 <p className="doctor-desc">{description}</p>
+              </div>
+              <div className="DoctorSchedule">
+                {" "}
+                <DoctorSchedule />
               </div>
             </div>
             <div className="line"></div>
