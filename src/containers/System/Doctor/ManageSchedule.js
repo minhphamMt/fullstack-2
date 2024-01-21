@@ -18,7 +18,7 @@ class ManageSchedule extends Component {
     this.state = {
       selectedDoctor: null,
       allDoctor: [],
-      currentDate: "",
+      currentDate: new Date(),
       TimeLog: [],
       active: [],
     };
@@ -119,7 +119,8 @@ class ManageSchedule extends Component {
         theme: "light",
       });
     }
-    let formatedDate = new Date(currentDate).getTime();
+    let formated = currentDate.toLocaleDateString();
+    let formatedDate = new Date(formated).getTime();
     let selected = [];
     for (let i = 0; i < active.length; i++) {
       let obj = {};
@@ -195,7 +196,6 @@ class ManageSchedule extends Component {
                   className="form-control"
                   onChange={(event) => this.handleOnChangeDate(event)}
                   value={this.state.currentDate}
-                  minDate={new Date()}
                 />
               </div>
               <div className="col-12 pick-hour-container my-5">

@@ -36,7 +36,6 @@ class DetailDoctor extends Component {
   };
   render() {
     let { doctor, position, description, contentDoctor } = this.state;
-    console.log(">>>check desc:", description);
     if (position.valueEn === "None") {
       position.valueEn = "Doctor";
     }
@@ -71,7 +70,7 @@ class DetailDoctor extends Component {
               </div>
               <div className="DoctorSchedule">
                 {" "}
-                <DoctorSchedule />
+                <DoctorSchedule id={doctor.id} />
               </div>
             </div>
             <div className="line"></div>
