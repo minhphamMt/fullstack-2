@@ -27,13 +27,20 @@ class DoctorSchedule extends Component {
       let formated = this.state.date.toLocaleDateString();
       let formatedDate = new Date(formated).getTime();
       let res = await getScheduleDoctorByDate(this.props.id, formatedDate);
-      console.log(">>>check res:", res);
-      console.log(">>>Check date:", formatedDate);
+      console.log(">>>Check res:", res);
+      if (res && res.errCode === 0) {
+        this.setState({
+          schedule: res.data,
+        });
+      }
     }
     if (preState.date !== this.state.date) {
-      console.log(">>>Check date:", this.state.date);
       let res = await getScheduleDoctorByDate(this.props.id, this.state.date);
-      console.log(">>>check res:", res);
+      if (res && res.errCode === 0) {
+        this.setState({
+          schedule: res.data,
+        });
+      }
     }
     if (preProps.language !== this.props.language) {
       this.changeTime(this.props.language);
@@ -41,16 +48,21 @@ class DoctorSchedule extends Component {
   }
   changeTime = async (language) => {
     let arrDate = [];
-
     for (let i = 0; i < 7; i++) {
       let obj = {};
       if (language === LANGUAGES.VI) {
         obj.label = moment(new Date()).add(i, "days").format("dddd -DD/MM");
+        if (i === 0) {
+          obj.label = "Hôm nay-" + moment(new Date()).format("DD/MM");
+        }
       } else {
         obj.label = moment(new Date())
           .add(i, "days")
           .locale("en")
           .format("dddd -DD/MM");
+        if (i === 0) {
+          obj.label = "Today-" + moment(new Date()).format("DD/MM");
+        }
       }
       obj.value = moment(new Date()).add(i, "days").startOf("day").valueOf();
       arrDate.push(obj);
@@ -67,6 +79,8 @@ class DoctorSchedule extends Component {
   render() {
     let language = this.props.language;
     let allDate = this.state.Date;
+    let schedule = this.state.schedule;
+
     return (
       <>
         <div className="doctor-schedule-container">
@@ -89,7 +103,38 @@ class DoctorSchedule extends Component {
                 })}
             </select>
           </div>
-          <div className="all-time-available"></div>
+          <div className="all-time-available">
+            <div className="calendar">
+              <i class="fas fa-calendar-alt cld"></i>
+              <p style={{ fontWeight: "600", fontSize: "16px" }}>
+                <FormattedMessage id="patient.detail-doctor.schedule" />
+              </p>
+            </div>
+            <div className="time-available">
+              {schedule && schedule.length > 0 ? (
+                schedule.map((item, index) => {
+                  let timeDisplay =
+                    language === LANGUAGES.VI
+                      ? item.TimeData.valueVi
+                      : item.TimeData.valueEn;
+                  return (
+                    <>
+                      <button className="btn time" key={index}>
+                        {timeDisplay}
+                      </button>
+                    </>
+                  );
+                })
+              ) : (
+                <>
+                  {" "}
+                  <div style={{ fontStyle: "italic", fontSize: "17px" }}>
+                    <FormattedMessage id="patient.detail-doctor.no-schedule" />
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </>
     );

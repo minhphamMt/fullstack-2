@@ -132,24 +132,44 @@ class ManageSchedule extends Component {
       }
     }
     console.log(">>>check selected:", selected);
-    await CreateBulkSchedule({
+    let res = await CreateBulkSchedule({
       arrSchedule: selected,
       doctorId: selectedDoctor.value,
       date: formatedDate,
     });
-    // toast.info("🦄 Save is done!", {
-    //   position: "top-right",
-    //   autoClose: 5000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   theme: "light",
-    // });
+    if (res && res.errCode === 0) {
+      toast.success("🦄 Save is done!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      this.setState({
+        selectedDoctor: null,
+        currentDate: new Date(),
+        active: [],
+      });
+    } else {
+      toast.warn("your api was err!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log(">>>check err res:", res);
+    }
   };
   render() {
     let { selectedDoctor, allDoctor, TimeLog, active } = this.state;
+    let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
     let { language } = this.props;
     let d = new Date();
     let x = d.getDate();
@@ -196,6 +216,7 @@ class ManageSchedule extends Component {
                   className="form-control"
                   onChange={(event) => this.handleOnChangeDate(event)}
                   value={this.state.currentDate}
+                  minDate={yesterday}
                 />
               </div>
               <div className="col-12 pick-hour-container my-5">
