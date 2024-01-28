@@ -89,5 +89,14 @@
             "schedule": "Examination Schedule",
             "no-schedule": " There are no appointments scheduled during this time, please choose another time!"
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "update-info": "Update info doctor",
+            "select-doctor": "Select Doctor :",
+            "intro-info": "Introdution info",
+            "create": "Create post",
+            "fix": "fix post"
+        }
     }
 }

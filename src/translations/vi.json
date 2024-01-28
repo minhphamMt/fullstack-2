@@ -89,5 +89,14 @@
             "schedule": "Lịch Khám",
             "no-schedule": " không có lịch khám trong thời gian này vui lòng chọn thời gian khác !"
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "update-info": "cập nhật thông tin bác sĩ ",
+            "select-doctor": "Chọn bác sĩ :",
+            "intro-info": "thông tin giới thiệu",
+            "create": "tạo bài đăng",
+            "fix": "sửa bài đăng"
+        }
     }
 }

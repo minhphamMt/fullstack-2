@@ -11,6 +11,7 @@ import "react-markdown-editor-lite/lib/index.css";
 import Select from "react-select";
 import { getDetailInfoDoctor } from "../../../services/userService";
 import { EditDetailDoctor } from "../../../services/userService";
+import { getAllCode } from "../../../services/userService";
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 class MarkDown extends Component {
   constructor(props) {
@@ -23,10 +24,47 @@ class MarkDown extends Component {
       allDoctor: [],
       doctorId: "",
       boolean: false,
+      listprice: [],
+      listpayment: [],
+      listprovince: [],
+      price: [],
+      payment: [],
+      province: [],
+      infomation: {
+        selectedPrice: "",
+        selectedPayment: "",
+        selectedProvince: "",
+      },
+      infoPrice: "",
+      infoPayment: "",
+      infoProvince: "",
+      info: {
+        nameClinic: "",
+        addressClinic: "",
+        note: "",
+      },
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.getAllDoctor();
+    let province = await getAllCode("PROVINCE");
+    let price = await getAllCode("PRICE");
+    let payment = await getAllCode("PAYMENT");
+    console.log(">>>Check :", price);
+    this.setState({
+      listprice: price.data,
+      listpayment: payment.data,
+      listprovince: province.data,
+    });
+
+    let price1 = this.buildDataSelect(this.state.listprice);
+    let province1 = this.buildDataSelect(this.state.listprovince);
+    let payment1 = this.buildDataSelect(this.state.listpayment);
+    this.setState({
+      price: price1,
+      payment: payment1,
+      province: province1,
+    });
   }
   componentDidUpdate(preProps, preState) {
     if (preProps.allDoctor !== this.props.allDoctor) {
@@ -37,17 +75,44 @@ class MarkDown extends Component {
     }
     if (preProps.language !== this.props.language) {
       let dataSelect = this.buildDataInput(this.props.allDoctor);
+      let price = this.buildDataSelect(this.state.listprice);
+      let province = this.buildDataSelect(this.state.listprovince);
+      let payment = this.buildDataSelect(this.state.listpayment);
       this.setState({
         allDoctor: dataSelect,
+        price: price,
+        payment: payment,
+        province: province,
       });
     }
   }
+  buildDataSelect = (inputdata) => {
+    let result = [];
+    let language = this.props.language;
+    if (inputdata && inputdata.length > 0) {
+      inputdata.map((item, index) => {
+        let obj = {};
+        let labelVi = item.valueVI;
+        let labelEn = item.valueEN;
+        obj.label = language === LANGUAGES.VI ? labelVi : labelEn;
+        obj.value = item.id;
+        result.push(obj);
+      });
+    }
+    return result;
+  };
   handleSaveMarkDown = async () => {
     await this.props.createInfoDoctor({
       contentHTML: this.state.contentHTML,
       contentMarkdown: this.state.contentMarkdown,
       description: this.state.description,
       doctorId: this.state.doctorId,
+      priceId: this.state.infoPrice,
+      provinceId: this.state.infoProvince,
+      paymentId: this.state.infoPayment,
+      addressClinic: this.state.info.addressClinic,
+      nameClinic: this.state.info.nameClinic,
+      note: this.state.info.note,
     });
     this.setState({
       contentHTML: "",
@@ -65,14 +130,18 @@ class MarkDown extends Component {
   };
   handleChangeSelected = async (selectedDoctor) => {
     let res = await getDetailInfoDoctor(selectedDoctor.value);
+    console.log(">>>check res : ", res);
     let content = {};
+    let info = {};
     if (res && res.data && res.data.MarkDown) {
       content = res.data.MarkDown;
+      let info = res.data.DoctorInfo;
       this.setState({
         contentHTML: content.contentHTML,
         contentMarkdown: content.contentMarkdown,
         description: content.description,
         boolean: true,
+        info: { ...info },
       });
       if (!content.description) {
         this.setState({
@@ -95,6 +164,46 @@ class MarkDown extends Component {
     this.setState({
       selectedDoctor: selectedDoctor,
       doctorId: selectedDoctor.value,
+    });
+    console.log(">>>Check state:", this.state.info);
+  };
+  handleChangeSelectedInfo = (selected, id) => {
+    let coppyState = { ...this.state.infomation };
+    let { listpayment, listprice, listprovince } = this.state;
+    coppyState[id] = selected;
+
+    if (id === "selectedPrice") {
+      for (let i = 0; i < listprice.length; i++) {
+        if (listprice[i].id === selected.value) {
+          this.setState({
+            infoPrice: listprice[i].keyMap,
+          });
+          break;
+        }
+      }
+    }
+    if (id === "selectedPayment") {
+      for (let i = 0; i < listpayment.length; i++) {
+        if (listpayment[i].id === selected.value) {
+          this.setState({
+            infoPayment: listpayment[i].keyMap,
+          });
+          break;
+        }
+      }
+    }
+    if (id === "selectedProvince") {
+      for (let i = 0; i < listprovince.length; i++) {
+        if (listprovince[i].id === selected.value) {
+          this.setState({
+            infoProvince: listprovince[i].keyMap,
+          });
+          break;
+        }
+      }
+    }
+    this.setState({
+      infomation: coppyState,
     });
   };
   handleOnChangeDesc = (event) => {
@@ -124,28 +233,51 @@ class MarkDown extends Component {
       contentMarkdown: this.state.contentMarkdown,
       description: this.state.description,
       doctorId: this.state.doctorId,
+      priceId: this.state.infoPrice,
+      provinceId: this.state.infoProvince,
+      paymentId: this.state.infoPayment,
+      addressClinic: this.state.info.addressClinic,
+      nameClinic: this.state.info.nameClinic,
+      note: this.state.info.note,
     });
+    let info = {};
     this.setState({
       contentHTML: "",
       contentMarkdown: "",
       description: "",
-      doctorId: "",
+      infomation: "",
+      info: "",
       selectedDoctor: null,
+    });
+    console.log(">>>check info:", this.state.info);
+    console.log(">>>check info:", this.state.infomation);
+  };
+  handleOnChangeInfo = (event, id) => {
+    let coppyinfo = { ...this.state.info };
+    coppyinfo[id] = event.target.value;
+    this.setState({
+      info: coppyinfo,
     });
   };
   render() {
-    let { selectedDoctor, allDoctor } = this.state;
-
+    let { selectedDoctor, allDoctor, infomation } = this.state;
+    let { selectedPrice, selectedPayment, selectedProvince } =
+      this.state.infomation;
     return (
       <>
         <div className="manage-doctor-container px-3">
           <div>
             {" "}
-            <h2 className="title">cập nhật thông tin bác sĩ </h2>
+            <h2 className="title">
+              <FormattedMessage id={"admin.manage-doctor.update-info"} />
+            </h2>
           </div>
           <div className="row col-12">
             <div className="content-left col-6">
-              <label className="form-label mt-3">Chọn bác sĩ:</label>
+              <label className="form-label mt-3">
+                {" "}
+                <FormattedMessage id={"admin.manage-doctor.select-doctor"} />
+              </label>
               <Select
                 className=""
                 value={selectedDoctor}
@@ -156,7 +288,7 @@ class MarkDown extends Component {
             <div className="more-info col-6">
               {" "}
               <label for="text-about" className="form-label">
-                Thông tin giói thiệu:
+                <FormattedMessage id={"admin.manage-doctor.intro-info"} />
               </label>
               <textarea
                 onChange={(event) => this.handleOnChangeDesc(event)}
@@ -167,7 +299,91 @@ class MarkDown extends Component {
               ></textarea>
             </div>
           </div>
-
+          <div
+            className="more-info row col-12 my-2"
+            style={{
+              display: "flex",
+              gap: "20px",
+              textTransform: "capitalize",
+            }}
+          >
+            <div className="form-group col-4">
+              {" "}
+              <label>chọn giá</label>
+              <Select
+                className=""
+                value={selectedPrice}
+                onChange={(event) =>
+                  this.handleChangeSelectedInfo(event, "selectedPrice")
+                }
+                options={this.state.price}
+              />
+            </div>
+            <div className="form-group col-4">
+              {" "}
+              <label>chọn phương thức thanh toán </label>
+              <Select
+                className=""
+                value={selectedPayment}
+                onChange={(event) =>
+                  this.handleChangeSelectedInfo(event, "selectedPayment")
+                }
+                options={this.state.payment}
+              />
+            </div>
+            <div className="form-group col-3">
+              {" "}
+              <label>chọn tỉnh thành </label>
+              <Select
+                className=""
+                value={selectedProvince}
+                onChange={(event) =>
+                  this.handleChangeSelectedInfo(event, "selectedProvince")
+                }
+                options={this.state.province}
+              />
+            </div>
+          </div>
+          <div
+            className="more-info row col-12 my-2"
+            style={{
+              display: "flex",
+              gap: "20px",
+              textTransform: "capitalize",
+            }}
+          >
+            <div className="form-group col-4">
+              {" "}
+              <label>tên phòng khám </label>
+              <input
+                className="form-control"
+                value={this.state.info.nameClinic}
+                onChange={(event) =>
+                  this.handleOnChangeInfo(event, "nameClinic")
+                }
+              ></input>{" "}
+            </div>
+            <div className="form-group col-4">
+              {" "}
+              <label>địa chỉ phòng khám </label>
+              <input
+                value={this.state.info.addressClinic}
+                className="form-control"
+                onChange={(event) =>
+                  this.handleOnChangeInfo(event, "addressClinic")
+                }
+              ></input>{" "}
+            </div>
+            <div className="form-group col-3">
+              {" "}
+              <label>note </label>
+              <input
+                value={this.state.info.note}
+                className="form-control"
+                onChange={(event) => this.handleOnChangeInfo(event, "note")}
+              ></input>{" "}
+            </div>
+          </div>
           <div className="manage-doctor-edit">
             {" "}
             <MdEditor
@@ -182,14 +398,14 @@ class MarkDown extends Component {
               className="btn btn-primary mx-3 my-3 col-3 "
               onClick={() => this.handleSaveMarkDown()}
             >
-              Tạo Bài Đăng
+              <FormattedMessage id={"admin.manage-doctor.create"} />
             </button>
           ) : (
             <button
               className="btn btn-primary mx-3 my-3 col-3 "
               onClick={() => this.handleEditDetail()}
             >
-              Sửa Bài Đăng
+              <FormattedMessage id={"admin.manage-doctor.fix"} />
             </button>
           )}
         </div>
